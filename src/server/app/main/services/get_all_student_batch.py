@@ -13,10 +13,11 @@ def get_all_students_batch(data):
         dict, int: response object containing appropriate response based on the response from save changes,
                     http response code specifying the success of getting data from table
     """
+    
     batch_id = data['batch_id']
     query = db.session.query(Student, Batch).join(
         Batch, Student.student_batch_id == Batch.batch_id).filter_by(batch_id=batch_id)
-    items = []
+    items = list()
     for i in query:
         items.append({"student_id": i.Student.student_id,
                       "student_name": i.Student.student_name, "batch_name": i.Batch.batch_name})
